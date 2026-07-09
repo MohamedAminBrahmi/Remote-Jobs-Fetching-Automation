@@ -11,10 +11,13 @@ Automated daily collection of remote tech job postings from the **RemoteOK** and
 Because both APIs only expose **currently live** postings (there is no historical date-range endpoint), this pipeline is designed to be run once per day and accumulate its own history over time rather than backfill the past.
 
 ## Repository structure
-.
+
 ├── remote jobs fetching.ipynb   # Core fetch logic: calls both APIs and writes the raw CSVs
+
 ├── remoteok_jobs_raw.csv        # Latest raw snapshot from RemoteOK
+
 ├── remotive_jobs_raw.csv        # Latest raw snapshot from Remotive
+
 └── airflow/                     # Airflow DAG that schedules and triggers the notebook daily
 
 ## Data sources
