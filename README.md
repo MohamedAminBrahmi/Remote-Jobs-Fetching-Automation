@@ -1,3 +1,22 @@
+# Remote Jobs Fetching Automation
+
+Automated daily collection of remote tech job postings from the **RemoteOK** and **Remotive** public APIs, orchestrated with **Apache Airflow**. This is the ingestion layer of a larger Business Intelligence project analyzing the remote tech job market (in-demand skills, salary trends, hiring companies, and remote-work scope over time).
+
+## What this repo does
+
+1. Calls the RemoteOK and Remotive APIs to pull all currently active remote job postings.
+2. Saves each source's response as a raw, untouched CSV snapshot (`remoteok_jobs_raw.csv`, `remotive_jobs_raw.csv`).
+3. Runs on a daily schedule via an Airflow DAG, so each run adds one more day of real historical data.
+
+Because both APIs only expose **currently live** postings (there is no historical date-range endpoint), this pipeline is designed to be run once per day and accumulate its own history over time rather than backfill the past.
+
+## Repository structure
+.
+├── remote jobs fetching.ipynb   # Core fetch logic: calls both APIs and writes the raw CSVs
+├── remoteok_jobs_raw.csv        # Latest raw snapshot from RemoteOK
+├── remotive_jobs_raw.csv        # Latest raw snapshot from Remotive
+└── airflow/                     # Airflow DAG that schedules and triggers the notebook daily
+
 ## Data sources
 
 | Source | Endpoint | Notes |
